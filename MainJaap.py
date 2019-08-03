@@ -29,7 +29,7 @@ __status__ = 'In development'
 # Set some constants
 
 URL = 'https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/' # The jaap.nl main page for scraping (Rotterdam, 50m²+)
-MAXPAGE = get_max_page(URL) # The number of summary pages to be scraped
+MAXPAGE = ScrapeJaap.get_max_page(URL) # The number of summary pages to be scraped
 TODAY = time.strftime("%Y%m%d") # The current date in the standard format YYYYMMDD
 
 print('Website to be scraped:', URL)
@@ -37,12 +37,12 @@ print('Number of pages:', MAXPAGE)
 print('Date:',TODAY)
 
 for p in range(MAXPAGE):
-    df_houses_read = read_summary_page(URL,p+1)
+    df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
     if p == 0:
         df_houses_summary = df_houses_read
     else:
         df_houses_summary = pd.concat([df_houses_summary,df_houses_read],ignore_index=True, sort =False)
      
-df_houses_summary.to_csv('houses_summary'+str(TODAY),index=False, header=True)
+df_houses_summary.to_csv('houses_summary_'+str(TODAY),index=False, header=True)
 
 print('All',len(df_houses_summary), 'houses have been written to file!')
