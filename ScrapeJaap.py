@@ -5,6 +5,14 @@ Supporting functions for scraping jaap.nl
 By dr.Pep, all rights reserved
 """
 
+# Libs
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
+import re
+import ssl
+# import numpy as np
+import pandas as pd
+
 def read_summary_page(url_mainpage,page_number):
     # construct page ur
     url = url_mainpage + "p" + str(page_number)
