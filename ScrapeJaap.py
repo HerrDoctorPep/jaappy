@@ -103,7 +103,7 @@ def read_summary_page(url_mainpage,page_number):
     # return the data frame
     return df_house_summary
 
-
 if __name__ == '__main__':
+    print('this is a test of the function read_summary_page...')
     print(read_summary_page('https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/',1))
 
