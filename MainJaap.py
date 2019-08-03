@@ -17,6 +17,8 @@ import pandas as pd
 
 # Own modules
 
+import ScrapeJaap
+
 # Authorship
 __author__ = 'dr.Pep'
 __copyright__ = 'Copyright 2019, dr.Pep'
