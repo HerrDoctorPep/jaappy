@@ -30,8 +30,3 @@ __status__ = 'In development'
 #
 # THIS IS WHERE THE FUN STARTS
 #
-
-# Ignore SSL certificate errors
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
