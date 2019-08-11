@@ -17,6 +17,15 @@ import ssl
 # import numpy as np
 import pandas as pd
 
+def price_as_int(price_as_string):
+    price_temp = re.findall('[0-9]+',price_as_string)
+    if len(price_temp)>0:
+        house_price = int(''.join(price_temp))
+    else:
+        house_price = None
+    return house_price
+
+
 def get_max_page(url):
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
@@ -105,11 +114,7 @@ def read_summary_page(url_mainpage,page_number):
     price = []
     for prc in price_html:
         if len(prc.contents)>0:
-            prc_temp = re.findall('[0-9]+',prc.contents[0])
-            if len(prc_temp)>0:
-                price.append(int(''.join(prc_temp)))
-            else:
-                price.append(None)
+            price.append(price_as_int(prc.contents[0]))
         else: 
             price.append(None)
     
