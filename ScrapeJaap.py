@@ -78,7 +78,7 @@ def read_summary_page(url_mainpage,page_number):
        | len(id_html) != len(price_html)
        | len(id_html) != len(pricetype_html)):
         # if lengths not equal: print error message and return None
-        print('ERROR: Not all scraped lists of equal length!')
+        logging.error('ERROR: Not all scraped lists of equal length!')
         
         return {'id': len(id_html), 
                 'link': len(link_html),
@@ -148,7 +148,6 @@ def read_house_detail_page(url_detail_page,pricetype,ID):
         html = urllib.request.urlopen(url_detail_page,context=ctx).read()
         soup = BeautifulSoup(html,'html.parser')
     except:
-        print(' | Scraping Failed')
         return False
     # Get the basic info also from this page
 
@@ -231,10 +230,7 @@ def read_house_detail_page(url_detail_page,pricetype,ID):
     house_characteristics['ID'] = ID
     # price is the same as Huidige_vraagprijs, so we omit it
 
-    # Not yet figured out how to return a 1-row data frame...
-    print(' | Scraping OK')
     return pd.DataFrame([house_characteristics])
-#    return pd.DataFrame.from_dict(house_characteristics)
 
 if __name__ == '__main__':
     print('This is a test of the function get_max_page...')

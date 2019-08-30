@@ -11,6 +11,7 @@ By dr.Pep
 import time
 # import numpy as np
 import pandas as pd
+import logging
 
 # Own modules
 
@@ -31,46 +32,44 @@ __status__ = 'In development'
 URL = 'https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/' # The jaap.nl main page for scraping (Rotterdam, 50m²+)
 MAXPAGE = ScrapeJaap.get_max_page(URL) # The number of summary pages to be scraped
 TODAY = time.strftime("%Y%m%d") # The current date in the standard format YYYYMMDD
-PROJECTDATA = 'D:\\micro\\Documents\\New folder\\HiDrive\\ProjectData\\JaapPy\\'
+PROJECTDATA = 'data\\processed\\'
+LOGFILE = 'data\\raw\\log_'+TODAY+'.txt'
 
-print('Website to be scraped:', URL)
-print('Number of pages:', MAXPAGE)
-print('Date today:',TODAY)
+logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
+logging.info('Time stamp:', time.asctime())
+logging.info('Website to be scraped:', URL)
+logging.info('Number of pages:', MAXPAGE)
 
-scrape_or_not = input('If you want to scrape the summary pages, type \'Yes\':',)
-if scrape_or_not == 'Yes':
-    for p in range(MAXPAGE):
-        df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
-        if p == 0:
-            df_houses_summary = df_houses_read
-        else:
-            df_houses_summary = pd.concat([df_houses_summary,df_houses_read],
-                                          ignore_index=True,
-                                          sort =False)         
-    df_houses_summary.to_csv(PROJECTDATA+'houses_summary_'+str(TODAY),
-                             index=False,
-                             header=True)
-    print('Summary of all',len(df_houses_summary), 'houses have been written to file!')
-else:
-    print('No houses will be scraped')
+for p in range(MAXPAGE):
+    df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
+    if p == 0:
+        df_houses_summary = df_houses_read
+    else:
+        df_houses_summary = pd.concat([df_houses_summary,df_houses_read],
+                                      ignore_index=True,
+                                      sort =False)         
+df_houses_summary.to_csv(PROJECTDATA+'houses_summary_'+str(TODAY)+'.csv',
+                         index=False,
+                         header=True)
+logging.info('Summary of all',len(df_houses_summary), 'houses have been written to file!')
+
 
 for i in df_houses_summary.index:
-    print('Index:' + str(i) 
-           + ' | Address:' + str(df_houses_summary['address'][i]) 
-           + ' | House ID:'+ str(df_houses_summary['id'][i]),
-           end = '')
     df_detail_read = ScrapeJaap.read_house_detail_page(df_houses_summary['link'][i],
                                                        df_houses_summary['pricetype'][i],
                                                        df_houses_summary['id'][i])
     # Some error handling - when page cannot be read
     if type(df_detail_read) == bool:
+        logging.warning('Index:' + str(i) 
+           + ' | Address:' + str(df_houses_summary['address'][i]) 
+           + ' | ID:'+ str(df_houses_summary['id'][i]) + ' | Scraping failed')
         continue
     # Put the scraped data into a data frame
     if i == 0:
         df_houses_detail = df_detail_read
     else:
         df_houses_detail= pd.concat([df_houses_detail,df_detail_read],ignore_index=True, sort =False)
-df_houses_detail.to_csv(PROJECTDATA + 'houses_detail_' + str(TODAY),
+df_houses_detail.to_csv(PROJECTDATA + 'houses_detail_' + str(TODAY)+'.csv',
                         index=False,
                         header=True)
-print('Detail of',len(df_houses_detail), 'houses have been written to file!')
+logging.info('Detail of'+str(len(df_houses_detail))+'houses have been written to file!')
