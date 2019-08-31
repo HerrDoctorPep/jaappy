@@ -41,7 +41,7 @@ logging.info('Website to be scraped: '+str(URL))
 logging.info('Number of pages: '+str(MAXPAGE))
 
 for p in range(MAXPAGE):
-    print('Scraping summary page '+str(p))
+    print('Scraping summary page '+str(p+1))
     df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
     if p == 0:
         df_houses_summary = df_houses_read
