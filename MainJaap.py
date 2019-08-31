@@ -32,8 +32,8 @@ __status__ = 'In development'
 URL = 'https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/' # The jaap.nl main page for scraping (Rotterdam, 50m²+)
 MAXPAGE = ScrapeJaap.get_max_page(URL) # The number of summary pages to be scraped
 TODAY = time.strftime("%Y%m%d") # The current date in the standard format YYYYMMDD
-PROJECTDATA = 'data\\processed\\'
-LOGFILE = 'data\\raw\\log_'+TODAY+'.txt'
+PROJECTDATA = 'data/processed/'
+LOGFILE = 'data/raw/log_'+TODAY+'.txt'
 
 logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
 logging.info('Time stamp: '+str(time.asctime()))
