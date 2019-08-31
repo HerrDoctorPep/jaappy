@@ -41,6 +41,7 @@ logging.info('Website to be scraped: '+str(URL))
 logging.info('Number of pages: '+str(MAXPAGE))
 
 for p in range(MAXPAGE):
+    print('Scraping summary page '+str(p))
     df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
     if p == 0:
         df_houses_summary = df_houses_read
@@ -55,6 +56,7 @@ logging.info('Summary of all',len(df_houses_summary), 'houses have been written 
 
 
 for i in df_houses_summary.index:
+    print('Scraping detail page '+ str(i))
     df_detail_read = ScrapeJaap.read_house_detail_page(df_houses_summary['link'][i],
                                                        df_houses_summary['pricetype'][i],
                                                        df_houses_summary['id'][i])
