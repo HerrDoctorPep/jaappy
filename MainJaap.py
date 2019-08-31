@@ -32,8 +32,8 @@ __status__ = 'In development'
 URL = 'https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/' # The jaap.nl main page for scraping (Rotterdam, 50m²+)
 MAXPAGE = ScrapeJaap.get_max_page(URL) # The number of summary pages to be scraped
 TODAY = time.strftime("%Y%m%d") # The current date in the standard format YYYYMMDD
-PROJECTDATA = 'data\\processed\\'
-LOGFILE = 'data\\raw\\log_'+TODAY+'.txt'
+PROJECTDATA = 'data/processed/'
+LOGFILE = 'data/raw/log_'+TODAY+'.txt'
 
 logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
 logging.info('Time stamp: '+str(time.asctime()))
@@ -41,6 +41,7 @@ logging.info('Website to be scraped: '+str(URL))
 logging.info('Number of pages: '+str(MAXPAGE))
 
 for p in range(MAXPAGE):
+    print('Scraping summary page '+str(p+1))
     df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
     if p == 0:
         df_houses_summary = df_houses_read
@@ -55,6 +56,7 @@ logging.info('Summary of all',len(df_houses_summary), 'houses have been written 
 
 
 for i in df_houses_summary.index:
+    print('Scraping detail page '+ str(i))
     df_detail_read = ScrapeJaap.read_house_detail_page(df_houses_summary['link'][i],
                                                        df_houses_summary['pricetype'][i],
                                                        df_houses_summary['id'][i])
