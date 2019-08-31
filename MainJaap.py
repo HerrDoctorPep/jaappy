@@ -36,9 +36,9 @@ PROJECTDATA = 'data\\processed\\'
 LOGFILE = 'data\\raw\\log_'+TODAY+'.txt'
 
 logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
-logging.info('Time stamp:', time.asctime())
-logging.info('Website to be scraped:', URL)
-logging.info('Number of pages:', MAXPAGE)
+logging.info('Time stamp: '+str(time.asctime()))
+logging.info('Website to be scraped: '+str(URL))
+logging.info('Number of pages: '+str(MAXPAGE))
 
 for p in range(MAXPAGE):
     df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
