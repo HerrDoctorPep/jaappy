@@ -49,7 +49,7 @@ def get_max_page(url):
 def read_summary_page(url_mainpage,page_number):
     # construct page url
     url = url_mainpage + "p" + str(page_number)
-    print('Scraping webpage ',url)
+    logging.info('Scraping webpage ',url)
         
     # Ignore SSL certificate errors
     ctx = ssl.create_default_context()
