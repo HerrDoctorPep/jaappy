@@ -52,7 +52,7 @@ for p in range(MAXPAGE):
 df_houses_summary.to_csv(PROJECTDATA+'houses_summary_'+str(TODAY)+'.csv',
                          index=False,
                          header=True)
-logging.info('Summary of all',len(df_houses_summary), 'houses have been written to file!')
+logging.info('Summaries of all ' + str(len(df_houses_summary)) + ' houses have been written to file!')
 
 
 for i in df_houses_summary.index:
@@ -74,4 +74,4 @@ for i in df_houses_summary.index:
 df_houses_detail.to_csv(PROJECTDATA + 'houses_detail_' + str(TODAY)+'.csv',
                         index=False,
                         header=True)
-logging.info('Detail of'+str(len(df_houses_detail))+'houses have been written to file!')
+logging.info('Details of '+str(len(df_houses_detail))+' houses have been written to file!')
