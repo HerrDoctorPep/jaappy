@@ -8,14 +8,17 @@ By dr.Pep
 # Built-in/Generic imports
 
 # Libs
-import time
+# import time
 # import numpy as np
 import pandas as pd
 import logging
+import os, uuid, sys
+from azure.storage.blob import BlockBlobService, PublicAccess, ContentSettings
 
 # Own modules
 
 import ScrapeJaap
+from MyConstants import * # This way you get the constants without filename as prefix
 
 # Authorship
 __author__ = 'dr.Pep'
@@ -27,21 +30,16 @@ __maintainer__ = 'dr.Pep'
 __email__ = 'python@vdlaan.eu'
 __status__ = 'In development'
 
-# Set some constants
+# Set up logging
+logging.basicConfig(filename = RAWDATA + LOGFILE,
+                    level = logging.DEBUG)
+logging.info('Time stamp: ' + str(time.asctime()))
+logging.info('Website to be scraped: ' + str(URL))
+logging.info('Number of pages: ' + str(MAXPAGE))
 
-URL = 'https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/' # The jaap.nl main page for scraping (Rotterdam, 50m²+)
-MAXPAGE = ScrapeJaap.get_max_page(URL) # The number of summary pages to be scraped
-TODAY = time.strftime("%Y%m%d") # The current date in the standard format YYYYMMDD
-PROJECTDATA = 'data/processed/'
-LOGFILE = 'data/raw/log_'+TODAY+'.txt'
-
-logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
-logging.info('Time stamp: '+str(time.asctime()))
-logging.info('Website to be scraped: '+str(URL))
-logging.info('Number of pages: '+str(MAXPAGE))
-
+# Scrape all summary pages
 for p in range(MAXPAGE):
-    print('Scraping summary page '+str(p+1))
+    print('Scraping summary page ' + str(p+1))
     df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
     if p == 0:
         df_houses_summary = df_houses_read
@@ -49,12 +47,12 @@ for p in range(MAXPAGE):
         df_houses_summary = pd.concat([df_houses_summary,df_houses_read],
                                       ignore_index=True,
                                       sort =False)         
-df_houses_summary.to_csv(PROJECTDATA+'houses_summary_'+str(TODAY)+'.csv',
+df_houses_summary.to_csv(PROJECTDATA + SUMMARYFILE,
                          index=False,
                          header=True)
 logging.info('Summaries of all ' + str(len(df_houses_summary)) + ' houses have been written to file!')
 
-
+# Scrape all detail pages
 for i in df_houses_summary.index:
     print('Scraping detail page '+ str(i))
     df_detail_read = ScrapeJaap.read_house_detail_page(df_houses_summary['link'][i],
@@ -71,7 +69,23 @@ for i in df_houses_summary.index:
         df_houses_detail = df_detail_read
     else:
         df_houses_detail= pd.concat([df_houses_detail,df_detail_read],ignore_index=True, sort =False)
-df_houses_detail.to_csv(PROJECTDATA + 'houses_detail_' + str(TODAY)+'.csv',
+df_houses_detail.to_csv(PROJECTDATA + DETAILFILE,
                         index=False,
                         header=True)
 logging.info('Details of '+str(len(df_houses_detail))+' houses have been written to file!')
+
+# Write Summary and Detail files to blobs
+blob_service = BlockBlobService(account_name = ACCOUNT_NAME, account_key = None, sas_token = SAS_TOKEN)
+
+blob_service.create_blob_from_path(
+    CONTAINER_NAME, 
+    LOGFILE, 
+    RAWDATA + LOGFILE)
+blob_service.create_blob_from_path(
+    CONTAINER_NAME, 
+    SUMMARYFILE, 
+    PROJECTDATA + SUMMARYFILE)
+blob_service.create_blob_from_path(
+    CONTAINER_NAME, 
+    DETAILFILE, 
+    PROJECTDATA + DETAILFILE)
