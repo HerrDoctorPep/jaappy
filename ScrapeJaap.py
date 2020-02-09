@@ -201,11 +201,11 @@ def read_house_detail_page(url_detail_page,pricetype,ID):
     # Add other data points 
     # try-except for the ones that might be empty
     try:
-        house_characteristics['Short_description'] = short_descr_html.get_text().strip()
+        house_characteristics['Short_description'] = short_descr_html.get_text().strip().replace('\n', ' ').replace('\r', ' ')
     except:
         house_characteristics['Short_description'] = None
     try:
-        house_characteristics['Long_description'] = long_descr_html.get_text().strip()
+        house_characteristics['Long_description'] = long_descr_html.get_text().strip().replace('\n', ' ').replace('\r', ' ')
     except:
         house_characteristics['Long_description'] = None
     try:

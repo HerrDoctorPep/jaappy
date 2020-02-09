@@ -23,4 +23,4 @@ DETAILFILE = 'houses_detail_' + str(TODAY)+'.csv'
 # Azure stuff
 ACCOUNT_NAME = 'dorpsstraat'
 CONTAINER_NAME = 'schraper-data'
-SAS_TOKEN = ''
+SAS_TOKEN = '' # need to add SAS token locally
