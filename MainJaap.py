@@ -13,7 +13,7 @@ By dr.Pep
 import pandas as pd
 import logging
 import os, uuid, sys
-from azure.storage.blob import BlockBlobService, PublicAccess, ContentSettings
+# from azure.storage.blob import BlockBlobService, PublicAccess, ContentSettings
 
 # Own modules
 
@@ -75,17 +75,20 @@ df_houses_detail.to_csv(PROJECTDATA + DETAILFILE,
 logging.info('Details of '+str(len(df_houses_detail))+' houses have been written to file!')
 
 # Write Summary and Detail files to blobs
-blob_service = BlockBlobService(account_name = ACCOUNT_NAME, account_key = None, sas_token = SAS_TOKEN)
+# THE BELOW DOES NOT WORK WITHOUT SAS TOKEN (currently empty)
 
-blob_service.create_blob_from_path(
-    CONTAINER_NAME, 
-    LOGFILE, 
-    RAWDATA + LOGFILE)
-blob_service.create_blob_from_path(
-    CONTAINER_NAME, 
-    SUMMARYFILE, 
-    PROJECTDATA + SUMMARYFILE)
-blob_service.create_blob_from_path(
-    CONTAINER_NAME, 
-    DETAILFILE, 
-    PROJECTDATA + DETAILFILE)
+# blob_service = BlockBlobService(account_name = ACCOUNT_NAME, account_key = None, sas_token = SAS_TOKEN)
+
+# blob_service.create_blob_from_path(
+#     CONTAINER_NAME, 
+#     LOGFILE, 
+#     RAWDATA + LOGFILE)
+# blob_service.create_blob_from_path(
+#     CONTAINER_NAME, 
+#     SUMMARYFILE, 
+#     PROJECTDATA + SUMMARYFILE)
+# blob_service.create_blob_from_path(
+#     CONTAINER_NAME, 
+#     DETAILFILE, 
+#     PROJECTDATA + DETAILFILE)
+
