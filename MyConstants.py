@@ -10,7 +10,7 @@ import time
 # Scrape stuff
 URL = 'https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/' # The jaap.nl main page for scraping (Rotterdam, 50m²+)
 PROJECTDATA = 'data/processed/'
-RAWDATA = 'data/raw/'
+LOGDATA = 'data/logs/'
 
 # Inferrred constants
 
