@@ -55,6 +55,7 @@ for p in range(MAXPAGE):
 # Write summary to file
 outfile = open(PROJECTDATA + SUMMARYFILE, 'wb')
 df_houses_summary.to_csv(outfile,index=False,header=True)
+os.fsync(outfile)
 outfile.close() 
 
 logging.info('Summaries of all ' + str(len(df_houses_summary)) + ' houses have been written to file!')
