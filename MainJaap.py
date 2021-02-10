@@ -53,11 +53,9 @@ for p in range(MAXPAGE):
         )         
 
 # Write summary to file
-df_houses_summary.to_csv(
-    PROJECTDATA + SUMMARYFILE,
-    index=False,
-    header=True
-)
+outfile = open(PROJECTDATA + SUMMARYFILE, 'wb')
+df_houses_summary.to_csv(outfile,index=False,header=True)
+outfile.close() 
 
 logging.info('Summaries of all ' + str(len(df_houses_summary)) + ' houses have been written to file!')
 
@@ -92,12 +90,10 @@ for i in df_houses_summary.index:
             sort =False
         )
 
-# Write data frame with all house details to file    
-df_houses_detail.to_csv(
-    PROJECTDATA + DETAILFILE,
-    index=False,
-    header=True
-)
+# Write data frame with all house details to file
+outfile = open(PROJECTDATA + DETAILFILE, 'wb') 
+df_houses_detail.to_csv(outfile,index=False,header=True)
+outfile.close()
 
 # Log our success
 logging.info('Details of '+str(len(df_houses_detail))+' houses have been written to file!')
