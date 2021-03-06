@@ -1,7 +1,9 @@
 CREATE DATABASE IF NOT EXISTS houses_db;
 
+USE houses_db;
+
 CREATE TABLE IF NOT EXISTS locations(
-    Index_ INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Date_ DATE,
     ID_ VARCHAR(255),
     Address_ VARCHAR(255) NOT NULL,
@@ -12,7 +14,7 @@ CREATE TABLE IF NOT EXISTS locations(
 );
 
 CREATE TABLE IF NOT EXISTS attributes_num(
-    Index_ INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Date_ DATE,
     ID_ VARCHAR(255),
     Bouwjaar_ INT,
@@ -24,13 +26,13 @@ CREATE TABLE IF NOT EXISTS attributes_num(
 );
 
 CREATE TABLE IF NOT EXISTS attributes_str(
-    Index_ INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_ INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Date_ DATE,
     ID_ VARCHAR(255),
     Balkon_ VARCHAR(255),
     Bijzonderheden_ VARCHAR(255),
-    Energielabel_(geschat)_ VARCHAR(255),
-    Energieverbruik_(geschat)_ VARCHAR(255),
+    Energielabel_ VARCHAR(255),
+    Energieverbruik_ VARCHAR(255),
     Garage_ VARCHAR(255),
     Isolatie_ VARCHAR(255),
     Keuken_ VARCHAR(255),
@@ -43,7 +45,7 @@ CREATE TABLE IF NOT EXISTS attributes_str(
 );
 
 CREATE TABLE IF NOT EXISTS attributes_txt(
-    Index_ INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Date_ DATE,
     ID_ VARCHAR(255),
     Long_description_ TEXT,
@@ -51,7 +53,7 @@ CREATE TABLE IF NOT EXISTS attributes_txt(
 );
 
 CREATE TABLE IF NOT EXISTS salesinfo(
-    Index_ INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Date_ DATE,
     ID_ VARCHAR(255),
     Broker_ VARCHAR(255),
@@ -62,5 +64,22 @@ CREATE TABLE IF NOT EXISTS salesinfo(
     Sold_ VARCHAR(255)
 );
 
+CREATE TABLE postcode_geo_roffa (
+            id INT NOT NULL AUTO_INCREMENT,
+            PostCode VARCHAR(255) NOT NULL,
+            Latitude FLOAT(9,7),
+            Longitude FLOAT(9,8),
+            PRIMARY KEY (id)
+);
+
+LOAD DATA INFILE '/home/pubuntu/scheduled-tasks/jaappy/data/processed/postcode_roffa_geo.csv'
+INTO TABLE postcode_geo_roffa
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '/n'
+IGNORE 1 ROWS;
+
+/*
 GRANT ALL PRIVILEGES ON houses_db.* TO 'xxx'@'localhost' IDENTIFIED BY 'xxxxxx';
 FLUSH PRIVILEGES;
+*/
