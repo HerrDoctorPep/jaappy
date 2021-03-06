@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS salesinfo(
     Sold_ VARCHAR(255)
 );
 
-CREATE TABLE postcode_geo_roffa (
+CREATE TABLE IF NOT EXISTS postcode_geo_roffa (
             id INT NOT NULL AUTO_INCREMENT,
             PostCode VARCHAR(255) NOT NULL,
             Latitude FLOAT(9,7),
