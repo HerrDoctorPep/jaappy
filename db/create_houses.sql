@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS postcode_geo_roffa (
             PRIMARY KEY (id)
 );
 
-LOAD DATA INFILE '/home/pubuntu/scheduled-tasks/jaappy/data/processed/postcode_roffa_geo.csv'
+LOAD DATA INFILE 'postcode_roffa_geo.csv'
 INTO TABLE postcode_geo_roffa
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
