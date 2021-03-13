@@ -20,7 +20,7 @@ from datetime import datetime
 
 # Set up logging
 LOGDATA = 'data/logs/'
-TODAY = datetime.date.today().strftime("%Y%m%d") # The current date in the standard format YYYYMMDD
+TODAY = date.today().strftime("%Y%m%d") # The current date in the standard format YYYYMMDD
 LOGFILE = 'log_'+TODAY+'.txt'
 logging.basicConfig(filename = LOGDATA + LOGFILE,
                     level = logging.DEBUG)
