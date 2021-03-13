@@ -1,3 +1,9 @@
+/*
+This SQL script sets up the database and schema for the database of houses. Only to be run once. 
+It can be run either as script (sudo mysql -u root < db/create_houses.sql) or by copy-pasting in the mysql console
+Don't forget to grant pivileges to the right user once done (cf. final commented lines of the script).
+*/
+
 CREATE DATABASE IF NOT EXISTS houses_db;
 
 USE houses_db;
@@ -65,18 +71,16 @@ CREATE TABLE IF NOT EXISTS salesinfo(
 );
 
 CREATE TABLE IF NOT EXISTS postcode_geo_roffa (
-            id INT NOT NULL AUTO_INCREMENT,
             PostCode VARCHAR(255) NOT NULL,
             Latitude FLOAT(9,7),
-            Longitude FLOAT(9,8),
-            PRIMARY KEY (id)
+            Longitude FLOAT(9,8)
 );
 
 LOAD DATA INFILE 'postcode_roffa_geo.csv'
 INTO TABLE postcode_geo_roffa
 FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '/n'
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 /*
