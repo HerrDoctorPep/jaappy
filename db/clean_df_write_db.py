@@ -16,7 +16,7 @@ import logging
 import mysql.connector
 from sqlalchemy import create_engine, select
 from sqlalchemy import Table, MetaData
-from datetime import date
+from datetime import date, datetime
 
 # Set up logging
 LOGDATA = 'data/logs/'
@@ -24,7 +24,7 @@ TODAY = date.today().strftime("%Y%m%d") # The current date in the standard forma
 LOGFILE = 'log_'+TODAY+'.txt'
 logging.basicConfig(filename = LOGDATA + LOGFILE,
                     level = logging.DEBUG)
-logging.info('Running script clean_df_write_db.py | Time stamp: ' + str(time.asctime()))
+logging.info('Running script clean_df_write_db.py | Time stamp: ' + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
 # DEFINE DATABASE CONNECTION
 # Need to define environment variables
@@ -126,9 +126,9 @@ def read_and_clean(file_name):
 
 def main():
     # For now only do one file (easy to substitute for whole folder)
-    file_list = os.listdir('data/processed/')
+    # file_list = os.listdir('data/processed/')
 
-    # file_list=['houses_detail_20210206.csv']
+    file_list=['houses_detail_20210206.csv']
 
     for file in file_list:
         if (file.startswith("houses_detail_") & file.endswith(".csv")):

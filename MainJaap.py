@@ -10,6 +10,7 @@ By dr.Pep
 # Libs
 # import time
 # import numpy as np
+from datetime import date, datetime
 import pandas as pd
 import logging
 import os, uuid, sys
@@ -33,7 +34,7 @@ __status__ = 'In development'
 # Set up logging
 logging.basicConfig(filename = LOGDATA + LOGFILE,
                     level = logging.DEBUG)
-logging.info('Running script MainJaap.py | Time stamp: ' + str(time.asctime()))
+logging.info('Running script MainJaap.py | Time stamp: ' + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 logging.info('Website to be scraped: ' + str(URL))
 logging.info('Number of pages: ' + str(MAXPAGE))
 
