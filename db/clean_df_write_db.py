@@ -16,7 +16,7 @@ import logging
 import mysql.connector
 from sqlalchemy import create_engine, select
 from sqlalchemy import Table, MetaData
-from datetime import datetime
+from datetime import date
 
 # Set up logging
 LOGDATA = 'data/logs/'
