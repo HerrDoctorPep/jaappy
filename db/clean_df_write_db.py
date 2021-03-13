@@ -13,13 +13,15 @@ import numpy as np
 import re
 import os
 import logging
-from MyConstants import *
 import mysql.connector
 from sqlalchemy import create_engine, select
 from sqlalchemy import Table, MetaData
 from datetime import datetime
 
 # Set up logging
+LOGDATA = 'data/logs/'
+TODAY = time.strftime("%Y%m%d") # The current date in the standard format YYYYMMDD
+LOGFILE = 'log_'+TODAY+'.txt'
 logging.basicConfig(filename = LOGDATA + LOGFILE,
                     level = logging.DEBUG)
 logging.info('Running script clean_df_write_db.py | Time stamp: ' + str(time.asctime()))
