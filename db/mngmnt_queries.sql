@@ -21,3 +21,6 @@ Check what is in tables
 USE houses_db;
 SHOW TABLES;
 DESCRIBE houses_detail;
+
+SELECT COUNT(*) FROM houses_detail;
+SELECT Type, count(DISTINCT ID) FROM houses_detail GROUP BY Type;
