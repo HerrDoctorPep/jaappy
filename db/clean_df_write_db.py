@@ -131,7 +131,7 @@ def main():
     file_list=['houses_detail_20210206.csv']
 
     for file in file_list:
-        if (file.startswith("houses_detail_") & file.endswith(".csv")):
+        if (file.startswith("houses_detail_202") & file.endswith(".csv")):
             if (not check_is_in_table(file)):
                 logging.info("File " + file + " is not yet in the database")
                 try:
