@@ -29,7 +29,7 @@ logging.info('Running script clean_df_write_db.py | Time stamp: ' + datetime.now
 # DEFINE DATABASE CONNECTION
 # Need to define environment variables
 # On windows: $env:SQL_USER="xxxxx"
-connect_string = 'mysql+mysqlconnector://' + os.environ.get('SQL_USER') +':' + os.environ.get('SQL_WW') + '@192.168.178.30:3306' + '/houses_db'
+connect_string = 'mysql+mysqlconnector://' + os.environ.get('SQL_USER') +':' + os.environ.get('SQL_WW') + '@localhost' + '/houses_db'
 engine = create_engine(connect_string, echo=False)
 logging.info('Database engine: ' + str(engine))
 
@@ -126,12 +126,11 @@ def read_and_clean(file_name):
 
 def main():
     # For now only do one file (easy to substitute for whole folder)
-    # file_list = os.listdir('data/processed/')
-
-    file_list=['houses_detail_20210206.csv']
+    file_list = os.listdir('data/processed/')
+    # file_list=['houses_detail_20210206.csv']
 
     for file in file_list:
-        if (file.startswith("houses_detail_") & file.endswith(".csv")):
+        if (file.startswith("houses_detail_202") & file.endswith(".csv")):
             if (not check_is_in_table(file)):
                 logging.info("File " + file + " is not yet in the database")
                 try:
