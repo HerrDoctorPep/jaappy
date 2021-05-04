@@ -94,3 +94,6 @@ Flowchart.odg
 Start_Modelling.ipynb
 db/db-connect.py
 db/read_files.py
+db/test.py
+db/modelling_export.py
+db/sqlalchemy_exercises.ipynb

@@ -125,10 +125,10 @@ def read_and_clean(file_name):
     return df_houses_detail
 
 def main():
-    # For now only do one file (easy to substitute for whole folder)
+    # Get all the files in the folder with scraping output data into a list
     file_list = os.listdir('data/processed/')
-    # file_list=['houses_detail_20210206.csv']
 
+    # Check for files to add to thedatabase and add them when found
     for file in file_list:
         if (file.startswith("houses_detail_202") & file.endswith(".csv")):
             if (not check_is_in_table(file)):
