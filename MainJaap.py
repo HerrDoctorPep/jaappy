@@ -41,7 +41,7 @@ logging.info('Number of pages: ' + str(MAXPAGE))
 # Scrape all summary pages
 for p in range(MAXPAGE):
     # Log where we are
-    logging.info('Scraping summary page ' + str(p+1))
+    # logging.info('Scraping summary page ' + str(p+1))
     # Read page
     df_houses_read = ScrapeJaap.read_summary_page(URL,p+1)
     if p == 0:
@@ -61,7 +61,7 @@ logging.info('Summaries of all ' + str(len(df_houses_summary)) + ' houses have b
 # Scrape all detail pages
 for i in df_houses_summary.index:
     # Start with logging where we are
-    logging.info('Scraping detail page '+ str(i))
+    # logging.info('Scraping detail page '+ str(i))
 
     # Read the page with details
     df_detail_read = ScrapeJaap.read_house_detail_page(

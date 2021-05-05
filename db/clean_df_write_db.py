@@ -144,13 +144,19 @@ def main():
                         con=engine, 
                         if_exists='append'
                         )
-                    logging.info("File " + file + " has been added to the database")
+                    logging.info(
+                        "File " + file + "  added to database" 
+                        + " | Added " + str(len(df_houses_detail)) + " records"
+                        + " | Timestamp: " + datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                        )
                 except:
                     logging.error("File " + file + " could not be added to the database")
-            else: 
-                logging.warning("File " + file + " is ignored: Scrapedate already occurs in table")
-        else:
-            logging.warning("File " + file + " is ignored: Filename format is incorrect")
+            # else: 
+                # logging.info("File " + file + " is ignored: Scrapedate already occurs in table")
+        # else:
+            # logging.info("File " + file + " is ignored: Filename format is incorrect")
+        # loop back to next file
+    logging.info("Checked complete file list | Timestamp: " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
 if __name__ == "__main__":
     main()
