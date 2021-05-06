@@ -61,22 +61,26 @@ def fix_missing_values(df):
     zeros_fixable = df[df['Zip'].isnull()].index 
     df.loc[zeros_fixable,'Zip'] = df.loc[zeros_fixable,'Address'].apply(
                 lambda x: x.split(',')[1].strip()
-                )    
+                )
+    logging.info('Fixable Zip:' + str(sum(zeros_fixable)))
  
     # Kamers via  Slaapkamers
     zeros_fixable = df[(df['Kamers'].isnull() == True) 
         & (df['Slaapkamers'].isnull() ==False)].index
     df.loc[
         zeros_fixable,'Kamers'] = 1 + df.loc[zeros_fixable,'Slaapkamers'] 
-    
+    logging.info('Fixable Kamers:' + str(sum(zeros_fixable)))
+
     # k.k. most common Pricetype
     zeros_fixable = df[df['Pricetype'].isnull()].index 
     df.loc[zeros_fixable,'Pricetype'] = 'k.k.'
+    logging.info('Fixable Pricetype:' + str(sum(zeros_fixable)))
 
     # Perceeloppervlakte 0 als ontbrekend
     zeros_fixable = df[df['Perceeloppervlakte'].isnull()].index 
-    df.loc[zeros_fixable,'Perceeloppervlakte'] = 0 # put zero where not applicable   
-    
+    df.loc[zeros_fixable,'Perceeloppervlakte'] = 0 # put zero where not applicable
+    logging.info('Fixable Perceeloppervlakte:' + str(sum(zeros_fixable)))
+
     return df
 
 def drop_missing_values(df):
@@ -89,6 +93,12 @@ def drop_missing_values(df):
         | df['Longitude'].isnull()
         | df['Bouwjaar'].isnull()].index
     
+    logging.info('Drop for Huidige_vraagprijs: ' + str(sum(df['Huidige_vraagprijs'].isnull())))
+    logging.info('Drop for Kamers: ' + str(sum(df['Kamers'].isnull())))
+    logging.info('Drop for Bouwjaar: ' + str(sum(df['Bouwjaar'].isnull())))
+    logging.info('Drop for Latitude: ' + str(sum(df['Latitude'].isnull())))
+    logging.info('Drop for Zip: ' + str(sum(df['ZipCode'].isnull())))
+
     df = df.drop(zeros_not_fixable)
     
     return df

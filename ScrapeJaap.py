@@ -154,13 +154,13 @@ def read_house_detail_page(url_detail_page,pricetype,ID):
 
     # Construct sub-tree of DOM to facilitate finding pricetype and sold
     detail_html = soup.find(class_ = 'detail-address')
-    
+
     # characteristics stored in specific nodes; pricetype is empty
-#    pricetype_html = detail_html.findChildren('span')[0]
+    # pricetype_html = detail_html.findChildren('span')[0]
     sold_html = detail_html.findChildren('span') # Produces error if not 'Verkocht (onder voorbehoud)'
     address_html = soup.find(class_ = 'detail-address-street') 
     zip_html = soup.find(class_ = 'detail-address-zipcity')
-#    price_html = soup.find(class_ = 'detail-address-price')
+    # price_html = soup.find(class_ = 'detail-address-price')
     short_descr_html = soup.find(class_ = 'short-description')
     long_descr_html = soup.find(class_ = 'description')
     broker_html = soup.find(class_ = 'broker-name')
@@ -169,12 +169,12 @@ def read_house_detail_page(url_detail_page,pricetype,ID):
     characteristics_html = soup.find_all(class_ = 'no-dots')
     metrics_html = soup.find_all(class_ = 'value')
      
-#    # Need to restrict to first 27 (found by exploring all)
+   # Need to restrict to first 27 (found by exploring all)
     n_char = 26
     
     # Now there is some cleaning to do...
     
-    #make characteristics and metrics into a dictionary
+    # make characteristics and metrics into a dictionary
     house_char_names = []
     for c in characteristics_html[0:n_char]:
         house_char_names.append(c.contents[0].replace(' ','_'))
@@ -235,7 +235,10 @@ def read_house_detail_page(url_detail_page,pricetype,ID):
 
 if __name__ == '__main__':
     print('This is a test of the function get_max_page...')
-    print(get_max_page('https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/'))
-    print('This is a test of the function read_summary_page...')
-    df_test = read_summary_page('https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/',20)
-    print(df_test)
+    # print(get_max_page('https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/'))
+    # print('This is a test of the function read_summary_page...')
+    # df_test = read_summary_page('https://www.jaap.nl/koophuizen/zuid+holland/groot-rijnmond/rotterdam/50+-woonopp/',20)
+    # print(df_test)
+    print('this is a test of the function that reads a detail page')
+    df_detail_test = read_house_detail_page("https://www.jaap.nl/te-koop/zuid+holland/groot-rijnmond/rotterdam/3062zj/'s-gravenweg+34/7802327/overzicht","k.k.","house_result_7802327")
+    print(df_detail_test.to_dict('series'))
