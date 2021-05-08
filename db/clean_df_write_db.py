@@ -62,24 +62,24 @@ def fix_missing_values(df):
     df.loc[zeros_fixable,'Zip'] = df.loc[zeros_fixable,'Address'].apply(
                 lambda x: x.split(',')[1].strip()
                 )
-    logging.info('Fixable Zip:' + str(sum(zeros_fixable)))
+    logging.info('Fixable Zip:' + str(len(zeros_fixable)))
  
     # Kamers via  Slaapkamers
     zeros_fixable = df[(df['Kamers'].isnull() == True) 
         & (df['Slaapkamers'].isnull() ==False)].index
     df.loc[
         zeros_fixable,'Kamers'] = 1 + df.loc[zeros_fixable,'Slaapkamers'] 
-    logging.info('Fixable Kamers:' + str(sum(zeros_fixable)))
+    logging.info('Fixable Kamers:' + str(len(zeros_fixable)))
 
     # k.k. most common Pricetype
     zeros_fixable = df[df['Pricetype'].isnull()].index 
     df.loc[zeros_fixable,'Pricetype'] = 'k.k.'
-    logging.info('Fixable Pricetype:' + str(sum(zeros_fixable)))
+    logging.info('Fixable Pricetype:' + str(len(zeros_fixable)))
 
     # Perceeloppervlakte 0 als ontbrekend
     zeros_fixable = df[df['Perceeloppervlakte'].isnull()].index 
     df.loc[zeros_fixable,'Perceeloppervlakte'] = 0 # put zero where not applicable
-    logging.info('Fixable Perceeloppervlakte:' + str(sum(zeros_fixable)))
+    logging.info('Fixable Perceeloppervlakte:' + str(len(zeros_fixable)))
 
     return df
 
